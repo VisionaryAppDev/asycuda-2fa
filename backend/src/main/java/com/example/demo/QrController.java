@@ -6,11 +6,14 @@ import com.example.demo.model.Otp;
 import com.example.demo.model.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -78,6 +81,23 @@ public class QrController {
         /// logic
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/upload")
+    public Object uploadFiles(@RequestParam("files") Object files) {
+        return files;
+    }
+
+
+    @CrossOrigin
+    @PostMapping(value = "/multiUpload",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Object uploadingMultipleFiles(
+            @RequestParam("attachments[]") MultipartFile[] uploadingFiles) {
+
+        System.out.println(LocalTime.now() +" :: "+ uploadingFiles.length);
+
+        return uploadingFiles.length;
     }
 
 }

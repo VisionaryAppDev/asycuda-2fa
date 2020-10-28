@@ -234,11 +234,17 @@ public class Form {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     String otp = txtOTP.getText();
-                    HttpRequest<String> httpRequest = new HttpRequest<>();
-                    httpRequest.get("http://localhost:8080/2fa/otp/verify/1/" + otp, String.class);
-                    JOptionPane.showMessageDialog(new JFrame(), "Successful! ", "OTP", JOptionPane.PLAIN_MESSAGE);
-                    mainFrame.setVisible(true);
-                    twoFADialog.dispose();
+                    if(otp != null && !otp.equals("")){
+                        HttpRequest<String> httpRequest = new HttpRequest<>();
+                        httpRequest.get("http://localhost:8080/2fa/otp/verify/1/" + otp, String.class);
+                        JOptionPane.showMessageDialog(new JFrame(), "Successful! ", "OTP", JOptionPane.PLAIN_MESSAGE);
+                        mainFrame.setVisible(true);
+                        twoFADialog.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(new JFrame(), "Input OTP wasn't matched", "OTP", JOptionPane.ERROR_MESSAGE);
+                    }
+
+
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(new JFrame(), "Input OTP wasn't matched", "OTP", JOptionPane.ERROR_MESSAGE);
                 }

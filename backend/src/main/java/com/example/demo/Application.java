@@ -32,7 +32,7 @@ public class Application {
 
 
         SocketIOServer server = new SocketIOServer(config);
-        server.start();
+//        server.start();
 
         server.addEventListener("on_2fa_qr_clicked", Map.class, new DataListener<Map>() {
             @Override
